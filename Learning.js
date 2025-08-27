@@ -128,11 +128,26 @@ function initializeApp() {
 
   // Check if user is logged in
   const savedUser = sessionStorage.getItem("currentUser");
+
+  // Read view from either query string or hash
+  const params = new URLSearchParams(window.location.search);
+  let view = params.get("view");
+  if (!view && window.location.hash) {
+    const match = window.location.hash.match(/view=([^&]+)/);
+    if (match) view = match[1];
+  }
+
   if (savedUser) {
     currentUser = JSON.parse(savedUser);
     showMainContent();
+    try { history.replaceState({}, document.title, window.location.pathname); } catch (_) {}
   } else {
-    showSignupSection();
+    if (view === "login") {
+      showLoginSection();
+    } else {
+      
+      showSignupSection();
+    }
   }
 }
 
@@ -191,20 +206,17 @@ function handleLogin(event) {
   const password = document.getElementById("password").value;
   const userType = document.getElementById("user-type").value;
 
+  if (!email || !password || !userType) {
+    alert("Please enter email, password, and select role.");
+    return;
+  }
+
   let user = null;
 
   // Check demo accounts
   for (const [type, account] of Object.entries(demoAccounts)) {
-    if (
-      email === account.email &&
-      password === account.password &&
-      userType === type
-    ) {
-      user = {
-        email: account.email,
-        name: account.name,
-        role: account.role,
-      };
+    if (email === account.email && password === account.password && userType === type) {
+      user = { email: account.email, name: account.name, role: account.role };
       break;
     }
   }
@@ -213,10 +225,8 @@ function handleLogin(event) {
   if (!user) {
     const registeredUsers = JSON.parse(localStorage.getItem("users") || "[]");
     const registeredUser = registeredUsers.find(
-      (u) =>
-        u.email === email && u.password === password && u.userType === userType
+      (u) => u.email === email && u.password === password && u.userType === userType
     );
-
     if (registeredUser) {
       user = {
         email: registeredUser.email,
@@ -227,7 +237,7 @@ function handleLogin(event) {
   }
 
   // Allow any valid combination for demo
-  if (!user && email && password && userType) {
+  if (!user) {
     user = {
       email: email,
       name: email.split("@")[0],
@@ -235,13 +245,10 @@ function handleLogin(event) {
     };
   }
 
-  if (user) {
-    currentUser = user;
-    sessionStorage.setItem("currentUser", JSON.stringify(user));
-    showMainContent();
-  } else {
-    alert("Invalid credentials. Please try again.");
-  }
+  currentUser = user;
+  sessionStorage.setItem("currentUser", JSON.stringify(user));
+  showMainContent();
+  try { history.replaceState({}, document.title, window.location.pathname); } catch (_) {}
 }
 
 function fillDemoAccount(type) {
@@ -254,6 +261,7 @@ function fillDemoAccount(type) {
 function logout() {
   currentUser = null;
   sessionStorage.removeItem("currentUser");
+  try { history.replaceState({}, document.title, window.location.pathname); } catch (_) {}
   showLoginSection();
 }
 
@@ -534,7 +542,7 @@ function filterAssignments(filter) {
           <span><i class="fas fa-star"></i> ${assignment.points} points</span>
           ${
             assignment.grade
-              ? `<span><i class="fas fa-check"></i> Grade: ${assignment.grade}%</span>`
+              ? `<span><i class=\"fas fa-check\"></i> Grade: ${assignment.grade}%</span>`
               : ""
           }
         </div>
@@ -696,3 +704,5 @@ window.fillDemoAccount = fillDemoAccount;
 window.toggleCourseForm = toggleCourseForm;
 window.toggleAssignmentForm = toggleAssignmentForm;
 window.submitAssignment = submitAssignment;
+window.showLoginSection = showLoginSection;
+window.showSignupSection = showSignupSection;

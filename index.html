@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EduLearn - Home</title>
+    <link rel="stylesheet" href="Learning.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .home-hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        position: relative;
+        overflow: hidden;
+      }
+      .home-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        max-width: 1100px;
+        width: 100%;
+        overflow: hidden;
+      }
+      .home-content {
+        padding: 2.25rem 2rem;
+      }
+      .home-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.4rem 0.8rem;
+        border-radius: 999px;
+        background: rgba(102, 126, 234, 0.12);
+        color: #667eea;
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+      }
+      .home-title {
+        font-size: 2.2rem;
+        line-height: 1.2;
+        color: #333;
+        margin-bottom: 0.75rem;
+      }
+      .home-subtitle {
+        color: #555;
+        margin-bottom: 1.25rem;
+      }
+      .home-cta {
+        display: flex;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+      }
+      .home-media {
+        position: relative;
+        background: #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .home-media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .home-features {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.75rem;
+        margin-top: 1.25rem;
+      }
+      .home-feature {
+        background: #f8f9fa;
+        border-radius: 12px;
+        padding: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        color: #444;
+      }
+      .gallery {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 1rem 2rem 2rem;
+      }
+      .gallery-title {
+        color: #fff;
+        text-align: center;
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+        opacity: 0.95;
+      }
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1rem;
+      }
+      .gallery-item {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+      .gallery-item img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        display: block;
+      }
+      .home-footer {
+        text-align: center;
+        margin-top: 1rem;
+        color: #eee;
+        opacity: 0.8;
+        font-size: 0.9rem;
+      }
+      @media (max-width: 900px) {
+        .home-card {
+          grid-template-columns: 1fr;
+        }
+        .home-media {
+          height: 240px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="home-hero">
+      <div class="home-card">
+        <div class="home-content">
+          <span class="home-badge"
+            ><i class="fas fa-graduation-cap"></i> EduLearn LMS</span
+          >
+          <h1 class="home-title">Your learning journey starts here</h1>
+          <p class="home-subtitle">
+            Join thousands of learners. Build skills with modern, interactive
+            courses and stay on track with your personalized dashboard.
+          </p>
+          <div class="home-cta">
+            <a href="Learining.html?view=signup" class="btn btn-primary"
+              ><i class="fas fa-user-plus"></i> Create Account</a
+            >
+            <a href="Learining.html?view=login" class="btn btn-outline"
+              ><i class="fas fa-sign-in-alt"></i> Login</a
+            >
+          </div>
+          <div class="home-features">
+            <div class="home-feature">
+              <i class="fas fa-book"></i> Rich courses
+            </div>
+            <div class="home-feature">
+              <i class="fas fa-tasks"></i> Track assignments
+            </div>
+            <div class="home-feature">
+              <i class="fas fa-chart-line"></i> View progress
+            </div>
+          </div>
+        </div>
+        <div class="home-media">
+          <img src="1030.jpg" alt="Learning" />
+        </div>
+      </div>
+    </section>
+
+    <section class="gallery">
+      <h2 class="gallery-title">Explore EduLearn</h2>
+      <div class="gallery-grid">
+        <div class="gallery-item"><img src="1020.jpg" alt="Campus life" /></div>
+        <div class="gallery-item">
+          <img src="1050.jpg" alt="Study together" />
+        </div>
+        <div class="gallery-item">
+          <img src="1040.jpg" alt="Learning success" />
+        </div>
+      </div>
+    </section>
+
+    <div class="home-footer">© <span id="year"></span> EduLearn</div>
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
